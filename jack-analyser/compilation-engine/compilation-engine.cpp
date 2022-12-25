@@ -235,7 +235,47 @@ void compilation_engine::compileStatement(){ // if | while | let | do | return
     if(tok->getCurrentToken() == "return") compileReturn();
 }
 
-void compilation_engine::compileIf(){
+void compilation_engine::compileIf(){ // 'if' '(' expression ')' '{' statements '}' ('else' '{' statements '}')?
+    // 'if'
+    XMLContent.push_back("<" + tok->tokenTypeString(tok->getCurrentToken()) + "> " + tok->getCurrentToken() + " </" + tok->tokenTypeString(tok->getCurrentToken()) + ">");
+    tok->advance();
+    
+    // '('
+    XMLContent.push_back("<" + tok->tokenTypeString(tok->getCurrentToken()) + "> " + tok->getCurrentToken() + " </" + tok->tokenTypeString(tok->getCurrentToken()) + ">");
+    tok->advance();
+    
+    // expression
+    compileExpression();
+    
+    // '{'
+    XMLContent.push_back("<" + tok->tokenTypeString(tok->getCurrentToken()) + "> " + tok->getCurrentToken() + " </" + tok->tokenTypeString(tok->getCurrentToken()) + ">");
+    tok->advance();
+    
+    // statements
+    compileStatements();
+    
+    // '}'
+    XMLContent.push_back("<" + tok->tokenTypeString(tok->getCurrentToken()) + "> " + tok->getCurrentToken() + " </" + tok->tokenTypeString(tok->getCurrentToken()) + ">");
+    tok->advance();
+    
+    
+    // (else '{' statements '}')?
+    if(tok->getCurrentToken() == "else"){
+        // else
+        XMLContent.push_back("<" + tok->tokenTypeString(tok->getCurrentToken()) + "> " + tok->getCurrentToken() + " </" + tok->tokenTypeString(tok->getCurrentToken()) + ">");
+        tok->advance();
+        
+        // '{'
+        XMLContent.push_back("<" + tok->tokenTypeString(tok->getCurrentToken()) + "> " + tok->getCurrentToken() + " </" + tok->tokenTypeString(tok->getCurrentToken()) + ">");
+        tok->advance();
+        
+        // statements
+        compileStatements();
+        
+        // '}'
+        XMLContent.push_back("<" + tok->tokenTypeString(tok->getCurrentToken()) + "> " + tok->getCurrentToken() + " </" + tok->tokenTypeString(tok->getCurrentToken()) + ">");
+        tok->advance();
+    }
     
 }
 
@@ -270,11 +310,43 @@ void compilation_engine::compileWhile(){ // 'while' '(' expression ')' '{' state
     tok->advance();
     
     
-    XMLContent.push_back("</whileStatement>");
+    XMLContent.push_back("</    whileStatement>");
     
 }
 
-void compilation_engine::compileLet(){
+void compilation_engine::compileLet(){ // 'let' varName ('[' expression ']')? '=' expression ';'
+    
+    // let
+    XMLContent.push_back("<" + tok->tokenTypeString(tok->getCurrentToken()) + "> " + tok->getCurrentToken() + " </" + tok->tokenTypeString(tok->getCurrentToken()) + ">");
+    tok->advance();
+    
+    // varName
+    XMLContent.push_back("<" + tok->tokenTypeString(tok->getCurrentToken()) + "> " + tok->getCurrentToken() + " </" + tok->tokenTypeString(tok->getCurrentToken()) + ">");
+    tok->advance();
+    
+    if(tok->getCurrentToken() == "["){
+        // '['
+        XMLContent.push_back("<" + tok->tokenTypeString(tok->getCurrentToken()) + "> " + tok->getCurrentToken() + " </" + tok->tokenTypeString(tok->getCurrentToken()) + ">");
+        tok->advance();
+        
+        // expression
+        compileExpression();
+        
+        // ']'
+        XMLContent.push_back("<" + tok->tokenTypeString(tok->getCurrentToken()) + "> " + tok->getCurrentToken() + " </" + tok->tokenTypeString(tok->getCurrentToken()) + ">");
+        tok->advance();
+    }
+    
+    // '='
+    XMLContent.push_back("<" + tok->tokenTypeString(tok->getCurrentToken()) + "> " + tok->getCurrentToken() + " </" + tok->tokenTypeString(tok->getCurrentToken()) + ">");
+    tok->advance();
+    
+    // expression
+    compileExpression();
+    
+    // ';'
+    XMLContent.push_back("<" + tok->tokenTypeString(tok->getCurrentToken()) + "> " + tok->getCurrentToken() + " </" + tok->tokenTypeString(tok->getCurrentToken()) + ">");
+    tok->advance();
     
 }
 
@@ -432,7 +504,56 @@ void compilation_engine::compileExpressionList(){ // (expression (',' expression
 }
 
 void compilation_engine::compileSubroutineCall(){ // subroutineName '(' expressionList ')' | (className | varName) '.' subroutineName '(' expressionList ')'
+    // this is also where the grammar becomes LL(2).
+    // we need to check if the second token from now is a '(' or a '.'. That way we will know how to proceed further.
     
+    tok->advance();
+    if(tok->getCurrentToken() == "("){
+        tok->retreat();
+        
+        // subroutineName
+        XMLContent.push_back("<" + tok->tokenTypeString(tok->getCurrentToken()) + "> " + tok->getCurrentToken() + " </" + tok->tokenTypeString(tok->getCurrentToken()) + ">");
+        tok->advance();
+        
+        // '('
+        XMLContent.push_back("<" + tok->tokenTypeString(tok->getCurrentToken()) + "> " + tok->getCurrentToken() + " </" + tok->tokenTypeString(tok->getCurrentToken()) + ">");
+        tok->advance();
+        
+        // expressionList
+        compileExpressionList();
+        
+        // ')'
+        XMLContent.push_back("<" + tok->tokenTypeString(tok->getCurrentToken()) + "> " + tok->getCurrentToken() + " </" + tok->tokenTypeString(tok->getCurrentToken()) + ">");
+        tok->advance();
+        
+    }else{ // second token is '.'
+        tok->retreat();
+        
+        // (className | varName)
+        XMLContent.push_back("<" + tok->tokenTypeString(tok->getCurrentToken()) + "> " + tok->getCurrentToken() + " </" + tok->tokenTypeString(tok->getCurrentToken()) + ">");
+        tok->advance();
+        
+        // '.'
+        XMLContent.push_back("<" + tok->tokenTypeString(tok->getCurrentToken()) + "> " + tok->getCurrentToken() + " </" + tok->tokenTypeString(tok->getCurrentToken()) + ">");
+        tok->advance();
+        
+        // subroutineName
+        XMLContent.push_back("<" + tok->tokenTypeString(tok->getCurrentToken()) + "> " + tok->getCurrentToken() + " </" + tok->tokenTypeString(tok->getCurrentToken()) + ">");
+        tok->advance();
+        
+        // '('
+        XMLContent.push_back("<" + tok->tokenTypeString(tok->getCurrentToken()) + "> " + tok->getCurrentToken() + " </" + tok->tokenTypeString(tok->getCurrentToken()) + ">");
+        tok->advance();
+        
+        // expressionList
+        XMLContent.push_back("<" + tok->tokenTypeString(tok->getCurrentToken()) + "> " + tok->getCurrentToken() + " </" + tok->tokenTypeString(tok->getCurrentToken()) + ">");
+        tok->advance();
+        
+        // ')'
+        XMLContent.push_back("<" + tok->tokenTypeString(tok->getCurrentToken()) + "> " + tok->getCurrentToken() + " </" + tok->tokenTypeString(tok->getCurrentToken()) + ">");
+        tok->advance();
+        
+    }
     
     
 }

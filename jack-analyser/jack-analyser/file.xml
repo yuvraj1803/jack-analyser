@@ -22,8 +22,17 @@
 <identifier> game </identifier>
 <symbol> ; </symbol>
 <statements>
-</statements>
 <keyword> let </keyword>
+<identifier> game </identifier>
+<symbol> = </symbol>
+<expression>
+<term>
+<symbol> ; </symbol>
+</term>
+</expression>
+<keyword> do </keyword>
+</statements>
+<identifier> game </identifier>
 </subroutineBody>
 </subroutineDec>
 </class>
