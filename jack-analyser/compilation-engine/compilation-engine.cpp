@@ -14,7 +14,6 @@ compilation_engine::compilation_engine(tokenizer T){
     filename = T.getCurrentFilename();
     tok = &T;
     compilation_engine_begin();
-    dumpXML();
 }
 
 void compilation_engine::dumpXML(){
@@ -42,13 +41,15 @@ vector<string> compilation_engine::getXMLContent(){
 
 void compilation_engine::compilation_engine_begin(){
     
+    // we assume that all .jack files start with a class declaration.
+    // hence, its enough to just process class declarations.
+    // imagine 'class' to be at the top of the parse tree.
+    
     while(tok->hasMoreTokens()){
         if(tok->getCurrentToken() == "class"){
             compileClass();
         }
-        
         tok->advance();
-        
     }
     
 }

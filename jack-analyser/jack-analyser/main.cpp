@@ -12,15 +12,17 @@
 
 int main(int argc, const char * argv[]) {
     
-    string filename = "/Users/boju/Desktop/nand2tetris/jack-analyser/jack-analyser/jack-analyser/file.jack";
-
-    tokenizer tok = *new tokenizer(filename);
-    compilation_engine com = *new compilation_engine(tok);
-    
-    for(auto i: com.getXMLContent()){
-        cout << i << '\n';
+    if(argc < 2){
+        cout << "very few arguments." << '\n';
+        cout << "try passing the filename after the executable" << '\n';
+        exit(1);
     }
     
+    string path = argv[1];
+
+    jack_analyser * JA = new jack_analyser(path);
+    
+    free(JA);
     
     return 0;
 }

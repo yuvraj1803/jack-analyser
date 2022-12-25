@@ -9,7 +9,6 @@
 #define compilation_engine_hpp
 
 #include "../tokenizer/tokenizer.hpp"
-#include <filesystem>
 #include <fstream>
 
 
@@ -36,7 +35,7 @@ class compilation_engine{
 public:
     
     compilation_engine(tokenizer T); // constructor
-
+    void dumpXML(); // dumps the processed XML into a .xml file
     vector<string> getXMLContent();
     
 private:
@@ -44,11 +43,11 @@ private:
     tokenizer * tok; // pointer to the tokenizer that has processed the current file.
     string filename; // the current file being processed.
     void compilation_engine_begin(); // starts generating XML code for the processed tokens.
-    void dumpXML(); // dumps the processed XML into a .xml file
     vector<string> XMLContent; // holds the content that will be dumped into the XML file at the end. The 'int' part of the pair contains the level of indentation.
     int indentLevel = 0; // keeps track of the level of indentation of current markup to be generated in the XML file.
     
     
+    // the grammar related to the methods below are stated beside their declarations in the .cpp file.
     
     void compileClass();
     void compileClassVarDec();
