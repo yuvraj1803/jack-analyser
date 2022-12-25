@@ -8,6 +8,24 @@
 #ifndef jack_analyser_hpp
 #define jack_analyser_hpp
 
-#include <stdio.h>
+#include <string>
+#include <fstream>
+
+using namespace std;
+
+
+class jack_analyser{
+    
+public:
+    
+    string filename;
+    
+    
+    
+private:
+    
+    
+    
+};
 
 #endif /* jack_analyser_hpp */
