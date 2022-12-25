@@ -8,6 +8,6 @@
 #ifndef tokenizer_hpp
 #define tokenizer_hpp
 
-#include <stdio.h>
+#include <iostream>
 
 #endif /* tokenizer_hpp */

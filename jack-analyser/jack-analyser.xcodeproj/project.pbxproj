@@ -10,6 +10,7 @@
 		EEC9628D29583B8500897958 /* main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = EEC9628C29583B8500897958 /* main.cpp */; };
 		EEC9629529583C5F00897958 /* tokenizer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = EEC9629329583C5F00897958 /* tokenizer.cpp */; };
 		EEC9629829583C7800897958 /* compilation-engine.cpp in Sources */ = {isa = PBXBuildFile; fileRef = EEC9629629583C7800897958 /* compilation-engine.cpp */; };
+		EEC9629B29583E4B00897958 /* jack-analyser.cpp in Sources */ = {isa = PBXBuildFile; fileRef = EEC9629929583E4B00897958 /* jack-analyser.cpp */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -31,6 +32,9 @@
 		EEC9629429583C5F00897958 /* tokenizer.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; name = tokenizer.hpp; path = tokenizer/tokenizer.hpp; sourceTree = "<group>"; };
 		EEC9629629583C7800897958 /* compilation-engine.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = "compilation-engine.cpp"; path = "compilation-engine/compilation-engine.cpp"; sourceTree = "<group>"; };
 		EEC9629729583C7800897958 /* compilation-engine.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; name = "compilation-engine.hpp"; path = "compilation-engine/compilation-engine.hpp"; sourceTree = "<group>"; };
+		EEC9629929583E4B00897958 /* jack-analyser.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = "jack-analyser.cpp"; sourceTree = "<group>"; };
+		EEC9629A29583E4B00897958 /* jack-analyser.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = "jack-analyser.hpp"; sourceTree = "<group>"; };
+		EEC9629C2958403100897958 /* ref.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = ref.h; path = ref/ref.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -47,6 +51,7 @@
 		EEC9628029583B8500897958 = {
 			isa = PBXGroup;
 			children = (
+				EEC9629C2958403100897958 /* ref.h */,
 				EEC9629629583C7800897958 /* compilation-engine.cpp */,
 				EEC9629729583C7800897958 /* compilation-engine.hpp */,
 				EEC9629329583C5F00897958 /* tokenizer.cpp */,
@@ -68,6 +73,8 @@
 			isa = PBXGroup;
 			children = (
 				EEC9628C29583B8500897958 /* main.cpp */,
+				EEC9629929583E4B00897958 /* jack-analyser.cpp */,
+				EEC9629A29583E4B00897958 /* jack-analyser.hpp */,
 			);
 			path = "jack-analyser";
 			sourceTree = "<group>";
@@ -132,6 +139,7 @@
 				EEC9629829583C7800897958 /* compilation-engine.cpp in Sources */,
 				EEC9628D29583B8500897958 /* main.cpp in Sources */,
 				EEC9629529583C5F00897958 /* tokenizer.cpp in Sources */,
+				EEC9629B29583E4B00897958 /* jack-analyser.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
