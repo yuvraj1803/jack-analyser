@@ -15,8 +15,10 @@ int main(int argc, const char * argv[]) {
 
     tokenizer tok = *new tokenizer(filename);
     
-    for(auto token : tok.getAllTokens()){
-        cout << token << '\n';
+
+    while(tok.hasMoreTokens()){
+        cout << tok.getCurrentToken() << '\n';
+        tok.advance();
     }
     
     return 0;

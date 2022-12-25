@@ -46,8 +46,8 @@
             filePath = "tokenizer/tokenizer.cpp"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "101"
-            endingLineNumber = "101"
+            startingLineNumber = "113"
+            endingLineNumber = "113"
             landmarkName = "tokenizer::filterToken(seperatedTokens, s)"
             landmarkType = "7">
          </BreakpointContent>
@@ -62,10 +62,164 @@
             filePath = "tokenizer/tokenizer.cpp"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "66"
-            endingLineNumber = "66"
+            startingLineNumber = "78"
+            endingLineNumber = "78"
             landmarkName = "tokenizer::tokenizer(file)"
             landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "C9BCF6A4-6532-4419-A3D7-0466A4F59DED"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "tokenizer/tokenizer.cpp"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "108"
+            endingLineNumber = "108"
+            landmarkName = "tokenizer::tokenizer(file)"
+            landmarkType = "7">
+            <Locations>
+               <Location
+                  uuid = "C9BCF6A4-6532-4419-A3D7-0466A4F59DED - 22b683c0493a7e3f"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "tokenizer::tokenizer(std::__1::basic_string&lt;char, std::__1::char_traits&lt;char&gt;, std::__1::allocator&lt;char&gt; &gt;)"
+                  moduleName = "jack-analyser"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/boju/Desktop/nand2tetris/jack-analyser/jack-analyser/tokenizer/tokenizer.cpp"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "97"
+                  endingLineNumber = "97"
+                  offsetFromSymbolStart = "440">
+               </Location>
+               <Location
+                  uuid = "C9BCF6A4-6532-4419-A3D7-0466A4F59DED - 22b683c0493a7e3f"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "tokenizer::tokenizer(std::__1::basic_string&lt;char, std::__1::char_traits&lt;char&gt;, std::__1::allocator&lt;char&gt; &gt;)"
+                  moduleName = "jack-analyser"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/boju/Desktop/nand2tetris/jack-analyser/jack-analyser/tokenizer/tokenizer.cpp"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "97"
+                  endingLineNumber = "97"
+                  offsetFromSymbolStart = "486">
+               </Location>
+               <Location
+                  uuid = "C9BCF6A4-6532-4419-A3D7-0466A4F59DED - 22b683c0493a7e3f"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "tokenizer::tokenizer(std::__1::basic_string&lt;char, std::__1::char_traits&lt;char&gt;, std::__1::allocator&lt;char&gt; &gt;)"
+                  moduleName = "jack-analyser"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/boju/Desktop/nand2tetris/jack-analyser/jack-analyser/tokenizer/tokenizer.cpp"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "97"
+                  endingLineNumber = "97"
+                  offsetFromSymbolStart = "853">
+               </Location>
+               <Location
+                  uuid = "C9BCF6A4-6532-4419-A3D7-0466A4F59DED - 22b683c0493a7e3f"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "tokenizer::tokenizer(std::__1::basic_string&lt;char, std::__1::char_traits&lt;char&gt;, std::__1::allocator&lt;char&gt; &gt;)"
+                  moduleName = "jack-analyser"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/boju/Desktop/nand2tetris/jack-analyser/jack-analyser/tokenizer/tokenizer.cpp"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "97"
+                  endingLineNumber = "97"
+                  offsetFromSymbolStart = "1335">
+               </Location>
+               <Location
+                  uuid = "C9BCF6A4-6532-4419-A3D7-0466A4F59DED - 22b683c0493a7e3f"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "tokenizer::tokenizer(std::__1::basic_string&lt;char, std::__1::char_traits&lt;char&gt;, std::__1::allocator&lt;char&gt; &gt;)"
+                  moduleName = "jack-analyser"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/boju/Desktop/nand2tetris/jack-analyser/jack-analyser/tokenizer/tokenizer.cpp"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "97"
+                  endingLineNumber = "97"
+                  offsetFromSymbolStart = "1991">
+               </Location>
+               <Location
+                  uuid = "C9BCF6A4-6532-4419-A3D7-0466A4F59DED - 22b683c0493a7e3f"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "tokenizer::tokenizer(std::__1::basic_string&lt;char, std::__1::char_traits&lt;char&gt;, std::__1::allocator&lt;char&gt; &gt;)"
+                  moduleName = "jack-analyser"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/boju/Desktop/nand2tetris/jack-analyser/jack-analyser/tokenizer/tokenizer.cpp"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "97"
+                  endingLineNumber = "97"
+                  offsetFromSymbolStart = "2037">
+               </Location>
+               <Location
+                  uuid = "C9BCF6A4-6532-4419-A3D7-0466A4F59DED - 22b683c0493a7e3f"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "tokenizer::tokenizer(std::__1::basic_string&lt;char, std::__1::char_traits&lt;char&gt;, std::__1::allocator&lt;char&gt; &gt;)"
+                  moduleName = "jack-analyser"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/boju/Desktop/nand2tetris/jack-analyser/jack-analyser/tokenizer/tokenizer.cpp"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "97"
+                  endingLineNumber = "97"
+                  offsetFromSymbolStart = "2182">
+               </Location>
+               <Location
+                  uuid = "C9BCF6A4-6532-4419-A3D7-0466A4F59DED - 22b683c0493a7e3f"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "tokenizer::tokenizer(std::__1::basic_string&lt;char, std::__1::char_traits&lt;char&gt;, std::__1::allocator&lt;char&gt; &gt;)"
+                  moduleName = "jack-analyser"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/boju/Desktop/nand2tetris/jack-analyser/jack-analyser/tokenizer/tokenizer.cpp"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "97"
+                  endingLineNumber = "97"
+                  offsetFromSymbolStart = "21">
+               </Location>
+            </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "C490B8F8-5A05-464C-AEF5-D8246E086581"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "jack-analyser/main.cpp"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "18"
+            endingLineNumber = "18"
+            landmarkName = "main(argc, argv)"
+            landmarkType = "9">
          </BreakpointContent>
       </BreakpointProxy>
    </Breakpoints>

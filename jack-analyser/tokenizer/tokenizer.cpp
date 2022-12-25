@@ -58,7 +58,19 @@ tokenizer::tokenizer(string file){
                     if(line[charIndex+1] == '/') break;                            // characters ahead. we also check if the comment is multi-lined.
                     if(line[charIndex+1] == '*'){
                         multiLineCommentActive = true;
-                        break;
+                        
+                        // here, we deal with multiline comments that end on the same line
+                        // the end of the multiline comment has to be found and the code ahead of it has to be considered.
+                        // this is done by a temporary index which scans and checks for the end.
+                        // then it updates the charIndex accordingly.
+                        
+                        for(int tempIndex = charIndex + 2; tempIndex < (int)line.size();tempIndex++){
+                            if(multiLineCommentActive and tempIndex+1 < (int)line.size() and line[tempIndex] == '*' and line[tempIndex+1] == '/'){
+                                multiLineCommentActive = false;
+                                charIndex = tempIndex + 2;
+                                if(charIndex >= (int)line.size()) break;
+                            }
+                        }
                     }
                 }
                 // spaces and tabs are not removed if we are inside a string constant. to handle this, we use the insideString boolean value.
@@ -89,10 +101,10 @@ tokenizer::tokenizer(string file){
     for(auto s : file_data){
         seperatedTokens.clear();
         filterToken(seperatedTokens, s);
-        for(auto tok : seperatedTokens) tokenlist.push_back(tok);
-        
+        for(auto tok : seperatedTokens) if(tok.size()) tokenlist.push_back(tok);
     }
     
+    if(tokenlist.size()) currentToken = tokenlist[nextTokenPosition++]; // setting the current token to the first token in tokenlist.
     
 }
 
@@ -114,6 +126,7 @@ void tokenizer::filterToken(vector<string> &seperatedTokens, string &s){
     
     if(s.empty()) return; // base case for the recursion. we just return if the string is empty.
     
+
     seperatedTokens.push_back(string(1,s[0])); // push the symbol into the tokenlist and remove it from the string
     s.erase(s.begin()); // erase the symbol from the string to continue processing it further
     
@@ -199,13 +212,43 @@ int tokenizer::tokenType(string token){
 }
 
 void tokenizer::advance(){
-    currentToken = tokenlist[++currentTokenPosition];
+    if(hasMoreTokens()) currentToken = tokenlist[nextTokenPosition++];
+    
 }
 
 bool tokenizer::hasMoreTokens(){
-    return currentTokenPosition != (int) tokenlist.size();
+    return nextTokenPosition != (int) tokenlist.size()+1;
 }
 
 string tokenizer::getCurrentToken(){
     return currentToken;
+}
+
+int tokenizer::keyword(){
+    string token = currentToken;
+    
+    if(token == "class") return CLASS;
+    if(token == "method") return METHOD;
+    if(token == "function") return FUNCTION;
+    if(token == "constructor") return CONSTRUCTOR;
+    if(token == "int") return INT;
+    if(token == "boolean") return BOOLEAN;
+    if(token == "char") return CHAR;
+    if(token == "void") return VOID;
+    if(token == "var") return VAR;
+    if(token == "static") return STATIC;
+    if(token == "field") return FIELD;
+    if(token == "let") return LET;
+    if(token == "do") return DO;
+    if(token == "if") return IF;
+    if(token == "else") return ELSE;
+    if(token == "while") return WHILE;
+    if(token == "return") return RETURN;
+    if(token == "true") return __TRUE__;
+    if(token == "false") return __FALSE__;
+    if(token == "null") return __NULL__;
+    if(token == "this") return THIS;
+    
+    
+    return INVALID;
 }
