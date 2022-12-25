@@ -35,18 +35,20 @@ public:
     
     bool hasMoreTokens(); // checks if we have more tokens to process
     void advance(); // advances to the next token
-    int tokenType(string token); // returns the type of the token passed    
+    void retreat(); // retreats to the previous token
+    int tokenType(string token); // returns the type of the token passed
+    string tokenTypeString(string token); // returns the type of the token in string format.
     vector<string> getAllTokens(); // returns a list of all tokens generated from the input file.
     string getCurrentToken(); // returns the current token pointed by the tokenizer.
     
-    int keyword();// return the type of keyword which is the currentToken. returns INVALID if token is not a keyword.
-    
+    string getCurrentFilename(); // returns the current file that is begin processed.
 private:
     
     vector<string> tokenlist; // list of all tokens
     void filterToken(vector<string> &seperatedTokens, string &token); // tokens might not always be space seperated. this function filters it even further.
     string currentToken;
     int nextTokenPosition = 0;
+    string filename; // the file that this tokenizer has processed.
     
 };
 

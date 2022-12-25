@@ -14,6 +14,8 @@ tokenizer::tokenizer(string file){
     // breaks the words in each line into induvidual words
     // using std::ifsteam for this purpose.
     
+    filename = file;
+    
     vector<string> file_data;
     ifstream fileStream(file);
     
@@ -101,11 +103,17 @@ tokenizer::tokenizer(string file){
     for(auto s : file_data){
         seperatedTokens.clear();
         filterToken(seperatedTokens, s);
-        for(auto tok : seperatedTokens) if(tok.size()) tokenlist.push_back(tok);
+        for(auto tok : seperatedTokens){
+            if(tok.size()) tokenlist.push_back(tok);
+        }
     }
     
     if(tokenlist.size()) currentToken = tokenlist[nextTokenPosition++]; // setting the current token to the first token in tokenlist.
     
+}
+
+string tokenizer::getCurrentFilename(){
+    return filename;
 }
 
 void tokenizer::filterToken(vector<string> &seperatedTokens, string &s){
@@ -138,6 +146,14 @@ vector<string>tokenizer::getAllTokens(){
     return tokenlist;
 }
 
+string tokenizer::tokenTypeString(string token){
+    if(tokenType(token) == KEYWORD) return "keyword";
+    if(tokenType(token) == SYMBOL)  return "symbol";
+    if(tokenType(token) == INTEGER_CONSTANT) return "integerConstant";
+    if(tokenType(token) == STRING_CONSTANT)  return "stringConstant";
+    
+    return "identifier";
+}
 
 int tokenizer::tokenType(string token){
     
@@ -211,44 +227,24 @@ int tokenizer::tokenType(string token){
     return IDENTIFIER;
 }
 
+void tokenizer::retreat(){ // goes back one step in the tokens list
+    if(nextTokenPosition == 1) return; // we are at the first position. cant retreat further.
+    currentToken = tokenlist[nextTokenPosition-2];
+    nextTokenPosition--;
+    
+}
+
 void tokenizer::advance(){
-    if(hasMoreTokens()) currentToken = tokenlist[nextTokenPosition++];
+    if(!hasMoreTokens()) return; // we dont do anything if there aren't any more tokens. Otherwise we may end up overflowing the buffer.
+    currentToken = tokenlist[nextTokenPosition];
+    nextTokenPosition++;
     
 }
 
 bool tokenizer::hasMoreTokens(){
-    return nextTokenPosition != (int) tokenlist.size()+1;
+    return nextTokenPosition < (int) tokenlist.size();
 }
 
 string tokenizer::getCurrentToken(){
     return currentToken;
-}
-
-int tokenizer::keyword(){
-    string token = currentToken;
-    
-    if(token == "class") return CLASS;
-    if(token == "method") return METHOD;
-    if(token == "function") return FUNCTION;
-    if(token == "constructor") return CONSTRUCTOR;
-    if(token == "int") return INT;
-    if(token == "boolean") return BOOLEAN;
-    if(token == "char") return CHAR;
-    if(token == "void") return VOID;
-    if(token == "var") return VAR;
-    if(token == "static") return STATIC;
-    if(token == "field") return FIELD;
-    if(token == "let") return LET;
-    if(token == "do") return DO;
-    if(token == "if") return IF;
-    if(token == "else") return ELSE;
-    if(token == "while") return WHILE;
-    if(token == "return") return RETURN;
-    if(token == "true") return __TRUE__;
-    if(token == "false") return __FALSE__;
-    if(token == "null") return __NULL__;
-    if(token == "this") return THIS;
-    
-    
-    return INVALID;
 }
