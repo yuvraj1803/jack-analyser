@@ -21,7 +21,6 @@ int main(int argc, const char * argv[]) {
     string path = argv[1];
 
     jack_analyser * JA = new jack_analyser(path);
-    
     free(JA);
     
     return 0;
