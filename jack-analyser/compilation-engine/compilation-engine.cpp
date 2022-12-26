@@ -35,6 +35,11 @@ void compilation_engine::dumpXML(){
     
 }
 
+inline void compilation_engine::addCurrentToken(){
+    XMLContent.push_back("<" + tok->tokenTypeString(tok->getCurrentToken()) + "> " + tok->getCurrentToken() + " </" + tok->tokenTypeString(tok->getCurrentToken()) + ">");
+    tok->advance();
+}
+
 vector<string> compilation_engine::getXMLContent(){
     return XMLContent;
 }
@@ -78,6 +83,10 @@ void compilation_engine::compileClass(){ //class : 'class' className { classVarD
     // subroutineDec*
     if(tok->getCurrentToken() == "constructor" or tok->getCurrentToken() == "function" or tok->getCurrentToken() == "method") compileSubroutineDec();
     
+    // '}'
+    XMLContent.push_back("<" + tok->tokenTypeString(tok->getCurrentToken()) + "> " + tok->getCurrentToken() + " </" + tok->tokenTypeString(tok->getCurrentToken()) + ">");
+    tok->advance();
+    
     XMLContent.push_back("</class>");
 }
 
@@ -98,6 +107,11 @@ void compilation_engine::compileClassVarDec(){ // ('static | 'field') type varNa
     
     // (',' varName)*
     while(tok->hasMoreTokens() and tok->getCurrentToken() != ";"){
+        // ','
+        XMLContent.push_back("<" + tok->tokenTypeString(tok->getCurrentToken()) + "> " + tok->getCurrentToken() + " </" + tok->tokenTypeString(tok->getCurrentToken()) + ">");
+        tok->advance();
+        
+        // varName
         XMLContent.push_back("<" + tok->tokenTypeString(tok->getCurrentToken()) + "> " + tok->getCurrentToken() + " </" + tok->tokenTypeString(tok->getCurrentToken()) + ">");
         tok->advance();
     }
@@ -185,6 +199,8 @@ void compilation_engine::compileSubroutineBody(){ // '{' varDec* statements '}'
 
 void compilation_engine::compileVarDec(){ // 'var' type varName (',', varName)*';'
     
+    XMLContent.push_back("<varDec>");
+    
     // 'var'
     XMLContent.push_back("<" + tok->tokenTypeString(tok->getCurrentToken()) + "> " + tok->getCurrentToken() + " </" + tok->tokenTypeString(tok->getCurrentToken()) + ">");
     tok->advance();
@@ -211,6 +227,8 @@ void compilation_engine::compileVarDec(){ // 'var' type varName (',', varName)*'
     XMLContent.push_back("<" + tok->tokenTypeString(tok->getCurrentToken()) + "> " + tok->getCurrentToken() + " </" + tok->tokenTypeString(tok->getCurrentToken()) + ">");
     tok->advance();
     
+    XMLContent.push_back("</varDec>");
+    
     
 }
 
@@ -219,7 +237,7 @@ void compilation_engine::compileStatements(){ // statement*
     XMLContent.push_back("<statements>");
     
     // statement*
-    if(tok->getCurrentToken() == "if" or tok->getCurrentToken() == "let" or tok->getCurrentToken() == "do" or tok->getCurrentToken() == "return" or tok->getCurrentToken() == "while"){
+    while(tok->getCurrentToken() == "if" or tok->getCurrentToken() == "let" or tok->getCurrentToken() == "do" or tok->getCurrentToken() == "return" or tok->getCurrentToken() == "while"){
         compileStatement();
     }
     
@@ -229,6 +247,7 @@ void compilation_engine::compileStatements(){ // statement*
 
 void compilation_engine::compileStatement(){ // if | while | let | do | return
     
+    
     if(tok->getCurrentToken() == "if") compileIf();
     if(tok->getCurrentToken() == "while") compileWhile();
     if(tok->getCurrentToken() == "let") compileLet();
@@ -237,6 +256,9 @@ void compilation_engine::compileStatement(){ // if | while | let | do | return
 }
 
 void compilation_engine::compileIf(){ // 'if' '(' expression ')' '{' statements '}' ('else' '{' statements '}')?
+    
+    XMLContent.push_back("<ifStatement>");
+    
     // 'if'
     XMLContent.push_back("<" + tok->tokenTypeString(tok->getCurrentToken()) + "> " + tok->getCurrentToken() + " </" + tok->tokenTypeString(tok->getCurrentToken()) + ">");
     tok->advance();
@@ -278,6 +300,9 @@ void compilation_engine::compileIf(){ // 'if' '(' expression ')' '{' statements 
         tok->advance();
     }
     
+    
+    XMLContent.push_back("</ifStatement>");
+    
 }
 
 void compilation_engine::compileWhile(){ // 'while' '(' expression ')' '{' statements '}'
@@ -311,11 +336,13 @@ void compilation_engine::compileWhile(){ // 'while' '(' expression ')' '{' state
     tok->advance();
     
     
-    XMLContent.push_back("</    whileStatement>");
+    XMLContent.push_back("</whileStatement>");
     
 }
 
 void compilation_engine::compileLet(){ // 'let' varName ('[' expression ']')? '=' expression ';'
+    
+    XMLContent.push_back("<letStatement>");
     
     // let
     XMLContent.push_back("<" + tok->tokenTypeString(tok->getCurrentToken()) + "> " + tok->getCurrentToken() + " </" + tok->tokenTypeString(tok->getCurrentToken()) + ">");
@@ -325,6 +352,7 @@ void compilation_engine::compileLet(){ // 'let' varName ('[' expression ']')? '=
     XMLContent.push_back("<" + tok->tokenTypeString(tok->getCurrentToken()) + "> " + tok->getCurrentToken() + " </" + tok->tokenTypeString(tok->getCurrentToken()) + ">");
     tok->advance();
     
+    // ('[' expression ']')?
     if(tok->getCurrentToken() == "["){
         // '['
         XMLContent.push_back("<" + tok->tokenTypeString(tok->getCurrentToken()) + "> " + tok->getCurrentToken() + " </" + tok->tokenTypeString(tok->getCurrentToken()) + ">");
@@ -349,9 +377,13 @@ void compilation_engine::compileLet(){ // 'let' varName ('[' expression ']')? '=
     XMLContent.push_back("<" + tok->tokenTypeString(tok->getCurrentToken()) + "> " + tok->getCurrentToken() + " </" + tok->tokenTypeString(tok->getCurrentToken()) + ">");
     tok->advance();
     
+    
+    XMLContent.push_back("</letStatement>");
+
+    
 }
 
-void compilation_engine::compileDo(){ // do subroutineCall
+void compilation_engine::compileDo(){ // do subroutineCall ';'
     
     XMLContent.push_back("<doStatement>");
     
@@ -361,6 +393,11 @@ void compilation_engine::compileDo(){ // do subroutineCall
     
     // subroutineCall
     compileSubroutineCall();
+    
+    // ';'
+    
+    XMLContent.push_back("<" + tok->tokenTypeString(tok->getCurrentToken()) + "> " + tok->getCurrentToken() + " </" + tok->tokenTypeString(tok->getCurrentToken()) + ">");
+    tok->advance();
     
     XMLContent.push_back("</doStatement>");
     
@@ -400,10 +437,10 @@ void compilation_engine::compileExpression(){ // term (op term)*
           or tok->getCurrentToken() == "-"
           or tok->getCurrentToken() == "*"
           or tok->getCurrentToken() == "/"
-          or tok->getCurrentToken() == "&"
+          or tok->getCurrentToken() == "&amp;"
           or tok->getCurrentToken() == "|"
-          or tok->getCurrentToken() == ">"
-          or tok->getCurrentToken() == "<"
+          or tok->getCurrentToken() == "&lt;"
+          or tok->getCurrentToken() == "&gt;"
           or tok->getCurrentToken() == "="
           ){
         // op
@@ -423,8 +460,23 @@ void compilation_engine::compileTerm(){ // integerConstant | stringConstant | ke
     
     // check if its an integerConstant or a stringConstant
     if(tok->tokenTypeString(tok->getCurrentToken()) == "integerConstant" or tok->tokenTypeString(tok->getCurrentToken()) == "stringConstant" or tok->tokenTypeString(tok->getCurrentToken()) == "keyword"){
-        XMLContent.push_back("<" + tok->tokenTypeString(tok->getCurrentToken()) + "> " + tok->getCurrentToken() + " </" + tok->tokenTypeString(tok->getCurrentToken()) + ">");
-        tok->advance();
+        
+        // we need to remove the quotation marks for the stringConstant. this will be handled seperately.
+        
+        if(tok->tokenTypeString(tok->getCurrentToken()) == "stringConstant"){
+            
+            string currToken = tok->getCurrentToken();
+            // removing quotation marks
+            currToken.erase(currToken.begin());
+            currToken.erase(--currToken.end());
+            
+            XMLContent.push_back("<stringConstant> " + currToken + " </stringConstant>");
+            tok->advance();
+        
+        }else{
+            XMLContent.push_back("<" + tok->tokenTypeString(tok->getCurrentToken()) + "> " + tok->getCurrentToken() + " </" + tok->tokenTypeString(tok->getCurrentToken()) + ">");
+            tok->advance();
+        }
     }else if(tok->getCurrentToken() == "-" or tok->getCurrentToken() == "~"){ // unaryOp term
         // unaryOp
         XMLContent.push_back("<" + tok->tokenTypeString(tok->getCurrentToken()) + "> " + tok->getCurrentToken() + " </" + tok->tokenTypeString(tok->getCurrentToken()) + ">");
@@ -432,7 +484,7 @@ void compilation_engine::compileTerm(){ // integerConstant | stringConstant | ke
         
         // term
         compileTerm();
-    }else if(tok->getCurrentToken() == "("){
+    }else if(tok->getCurrentToken() == "("){ // '(' expression ')'
         // '('
         XMLContent.push_back("<" + tok->tokenTypeString(tok->getCurrentToken()) + "> " + tok->getCurrentToken() + " </" + tok->tokenTypeString(tok->getCurrentToken()) + ">");
         tok->advance();
@@ -450,6 +502,9 @@ void compilation_engine::compileTerm(){ // integerConstant | stringConstant | ke
             string currentToken = tok->getCurrentToken();
             tok->advance();
             if(tok->getCurrentToken() == "["){ // now we know its in the form varName[expression]
+                
+                tok->retreat();
+                
                 // varName
                 XMLContent.push_back("<" + tok->tokenTypeString(tok->getCurrentToken()) + "> " + tok->getCurrentToken() + " </" + tok->tokenTypeString(tok->getCurrentToken()) + ">");
                 tok->advance();
@@ -469,7 +524,14 @@ void compilation_engine::compileTerm(){ // integerConstant | stringConstant | ke
                 // subroutineCall
                 tok->retreat();
                 compileSubroutineCall();
+            }else if(tok->getCurrentToken() == "."){ // subroutineCall
+                tok->retreat();
+                
+                compileSubroutineCall();
+                
             }else{ // this has to be a varName
+                tok->retreat();
+                
                 XMLContent.push_back("<" + tok->tokenTypeString(tok->getCurrentToken()) + "> " + tok->getCurrentToken() + " </" + tok->tokenTypeString(tok->getCurrentToken()) + ">");
                 tok->advance();
             }
@@ -486,7 +548,10 @@ void compilation_engine::compileExpressionList(){ // (expression (',' expression
     
     XMLContent.push_back("<expressionList>");
     
-    if(tok->getCurrentToken() == ")") return; // handles the case where there are no expressions.
+    if(tok->getCurrentToken() == ")"){
+        XMLContent.push_back("</expressionList>");
+        return; // handles the case where there are no expressions.
+    }
     
     // expression
     compileExpression();
@@ -508,9 +573,7 @@ void compilation_engine::compileSubroutineCall(){ // subroutineName '(' expressi
     // this is also where the grammar becomes LL(2).
     // we need to check if the second token from now is a '(' or a '.'. That way we will know how to proceed further.
     
-    tok->advance();
     if(tok->getCurrentToken() == "("){
-        tok->retreat();
         
         // subroutineName
         XMLContent.push_back("<" + tok->tokenTypeString(tok->getCurrentToken()) + "> " + tok->getCurrentToken() + " </" + tok->tokenTypeString(tok->getCurrentToken()) + ">");
@@ -528,7 +591,6 @@ void compilation_engine::compileSubroutineCall(){ // subroutineName '(' expressi
         tok->advance();
         
     }else{ // second token is '.'
-        tok->retreat();
         
         // (className | varName)
         XMLContent.push_back("<" + tok->tokenTypeString(tok->getCurrentToken()) + "> " + tok->getCurrentToken() + " </" + tok->tokenTypeString(tok->getCurrentToken()) + ">");
@@ -547,12 +609,12 @@ void compilation_engine::compileSubroutineCall(){ // subroutineName '(' expressi
         tok->advance();
         
         // expressionList
-        XMLContent.push_back("<" + tok->tokenTypeString(tok->getCurrentToken()) + "> " + tok->getCurrentToken() + " </" + tok->tokenTypeString(tok->getCurrentToken()) + ">");
-        tok->advance();
+        compileExpressionList();
         
         // ')'
         XMLContent.push_back("<" + tok->tokenTypeString(tok->getCurrentToken()) + "> " + tok->getCurrentToken() + " </" + tok->tokenTypeString(tok->getCurrentToken()) + ">");
         tok->advance();
+        
         
     }
     
@@ -564,6 +626,7 @@ void compilation_engine::compileParameterList(){ // ((type varName) (',' type Va
     XMLContent.push_back("<parameterList>");
     
     if(tok->getCurrentToken() == ")"){ // zero parameters are handled here
+        XMLContent.push_back("</parameterList>");
         return;
     }
     

@@ -11,7 +11,7 @@
 #include "jack-analyser.hpp"
 
 int main(int argc, const char * argv[]) {
-    
+        
     if(argc < 2){
         cout << "very few arguments." << '\n';
         cout << "try passing the filename after the executable" << '\n';

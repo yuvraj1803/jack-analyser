@@ -104,12 +104,19 @@ tokenizer::tokenizer(string file){
         seperatedTokens.clear();
         filterToken(seperatedTokens, s);
         for(auto tok : seperatedTokens){
-            if(tok.size()) tokenlist.push_back(tok);
+            if(isCleanToken(tok)) tokenlist.push_back(tok);
         }
     }
     
     if(tokenlist.size()) currentToken = tokenlist[nextTokenPosition++]; // setting the current token to the first token in tokenlist.
     
+}
+
+bool tokenizer::isCleanToken(string token){
+    if(token.size() == 0) return false;
+    if(token[0] == '\0' or token[0] == '\r') return false;
+    
+    return true;
 }
 
 string tokenizer::getCurrentFilename(){
@@ -134,8 +141,18 @@ void tokenizer::filterToken(vector<string> &seperatedTokens, string &s){
     
     if(s.empty()) return; // base case for the recursion. we just return if the string is empty.
     
-
-    seperatedTokens.push_back(string(1,s[0])); // push the symbol into the tokenlist and remove it from the string
+    //we have special names for  < > & " symbols. we dont want them to confuse the XML file processor.
+    if(s[0] == '<'){
+        seperatedTokens.push_back("&lt;");
+    }else if(s[0] == '>'){
+        seperatedTokens.push_back("&gt;");
+    }else if(s[0] == '&'){
+        seperatedTokens.push_back("&amp;");
+    }else if(s[0] == '\"'){
+        seperatedTokens.push_back("&quot;");
+    }else{
+        seperatedTokens.push_back(string(1,s[0])); // push the symbol into the tokenlist and remove it from the string
+    }
     s.erase(s.begin()); // erase the symbol from the string to continue processing it further
     
     filterToken(seperatedTokens, s); // recursively process the string

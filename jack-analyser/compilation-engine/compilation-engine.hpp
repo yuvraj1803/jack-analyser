@@ -49,6 +49,8 @@ private:
     
     // the grammar related to the methods below are stated beside their declarations in the .cpp file.
     
+    inline void addCurrentToken(); // this will add the current token's markup into the XMLContent vector.
+    
     void compileClass();
     void compileClassVarDec();
     void compileSubroutineDec();

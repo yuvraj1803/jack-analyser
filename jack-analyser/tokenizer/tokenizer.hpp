@@ -49,6 +49,7 @@ private:
     string currentToken;
     int nextTokenPosition = 0;
     string filename; // the file that this tokenizer has processed.
+    bool isCleanToken(string token); // this is done to remove tokens such as '\0' or '\r'. which we call 'cleaning'.
     
 };
 
