@@ -1,4 +1,4 @@
-# jack-analyser
+# jack-analyser (tokenizer + parser)
  
 Author: Yuvraj Sakshith
  
@@ -22,7 +22,7 @@ It consists of two sub-modules, the **Tokenizer and the Compilation-Engine**.
                
                ...
 
-**Compilation-Engine** :  uses the services of the Tokenizer through the Tokenizer-API and generates an XML file.
+**Compilation-Engine (Parser)** :  uses the services of the Tokenizer through the Tokenizer-API and generates an XML file.
                           This is done recursively by following the **Jack Grammar**.
                      
 
