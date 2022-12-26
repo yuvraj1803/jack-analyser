@@ -25,13 +25,16 @@ It consists of two sub-modules, the **Tokenizer and the Compilation-Engine**.
 **Compilation-Engine** :  uses the services of the Tokenizer through the Tokenizer-API and generates an XML file.
                           This is done recursively by following the **Jack Grammar**.
                      
+
+<img width="1407" alt="compiler-design" src="https://user-images.githubusercontent.com/37622719/209528715-2e73424f-bcad-4463-bb24-dfbc9c3440d0.png">
+
 **Jack Grammar** 
-Jack Grammar is a LL-Grammar which is LL(1) in all cases excepts while handling expressions, in which it becomes LL(2).
+Jack Grammar is a LL-Grammar which is LL(1) in all cases except while handling expressions, in which it becomes LL(2).
 (Parsed from **LEFT TO RIGHT** and by constructing the **LEFT MOST DERIVATION** of the sentence.)
 
 Refer to the Jack Grammar and the design of the compiler in the images below.
 ![jack-grammar](https://user-images.githubusercontent.com/37622719/209528502-0515d747-ceb5-4839-b6e3-28a89e3122b8.png)
-<img width="1407" alt="compiler-design" src="https://user-images.githubusercontent.com/37622719/209528715-2e73424f-bcad-4463-bb24-dfbc9c3440d0.png">
+
 
                      
 
