@@ -79,9 +79,9 @@ void compilation_engine::compileClass(){ //class : 'class' className { classVarD
     
     
     // classVarDec*
-    if(tok->getCurrentToken() == "field" or tok->getCurrentToken() == "static") compileClassVarDec();
+    while(tok->getCurrentToken() == "field" or tok->getCurrentToken() == "static") compileClassVarDec();
     // subroutineDec*
-    if(tok->getCurrentToken() == "constructor" or tok->getCurrentToken() == "function" or tok->getCurrentToken() == "method") compileSubroutineDec();
+    while(tok->getCurrentToken() == "constructor" or tok->getCurrentToken() == "function" or tok->getCurrentToken() == "method") compileSubroutineDec();
     
     // '}'
     XMLContent.push_back("<" + tok->tokenTypeString(tok->getCurrentToken()) + "> " + tok->getCurrentToken() + " </" + tok->tokenTypeString(tok->getCurrentToken()) + ">");
