@@ -112,6 +112,26 @@ tokenizer::tokenizer(string file){
     
 }
 
+void tokenizer::dumpXML(){
+    // remove .jack from the file name.
+    string outputFile = "";
+    for(auto c: filename){
+        if(c == '.') break;
+        outputFile += c;
+    }
+    // add T at the end of the filename to denote 'T'okenizer output.
+    outputFile += "T.xml";
+    ofstream outputFileStream(outputFile);
+    outputFileStream << "<tokens>\n";
+    for(auto token : tokenlist){
+        outputFileStream << "<" << tokenTypeString(token) << "> " << token << " </" << tokenTypeString(token) << ">\n";
+    }
+    outputFileStream << "</tokens>";
+    
+    outputFileStream.close();
+    
+}
+
 bool tokenizer::isCleanToken(string token){
     if(token.size() == 0) return false;
     if(token[0] == '\0' or token[0] == '\r') return false;

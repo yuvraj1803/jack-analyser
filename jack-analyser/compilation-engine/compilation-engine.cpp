@@ -270,6 +270,10 @@ void compilation_engine::compileIf(){ // 'if' '(' expression ')' '{' statements 
     // expression
     compileExpression();
     
+    // ')'
+    XMLContent.push_back("<" + tok->tokenTypeString(tok->getCurrentToken()) + "> " + tok->getCurrentToken() + " </" + tok->tokenTypeString(tok->getCurrentToken()) + ">");
+    tok->advance();
+    
     // '{'
     XMLContent.push_back("<" + tok->tokenTypeString(tok->getCurrentToken()) + "> " + tok->getCurrentToken() + " </" + tok->tokenTypeString(tok->getCurrentToken()) + ">");
     tok->advance();
@@ -573,7 +577,11 @@ void compilation_engine::compileSubroutineCall(){ // subroutineName '(' expressi
     // this is also where the grammar becomes LL(2).
     // we need to check if the second token from now is a '(' or a '.'. That way we will know how to proceed further.
     
+    tok->advance();
+    
     if(tok->getCurrentToken() == "("){
+            
+        tok->retreat();
         
         // subroutineName
         XMLContent.push_back("<" + tok->tokenTypeString(tok->getCurrentToken()) + "> " + tok->getCurrentToken() + " </" + tok->tokenTypeString(tok->getCurrentToken()) + ">");
@@ -591,6 +599,8 @@ void compilation_engine::compileSubroutineCall(){ // subroutineName '(' expressi
         tok->advance();
         
     }else{ // second token is '.'
+        
+        tok->retreat();
         
         // (className | varName)
         XMLContent.push_back("<" + tok->tokenTypeString(tok->getCurrentToken()) + "> " + tok->getCurrentToken() + " </" + tok->tokenTypeString(tok->getCurrentToken()) + ">");

@@ -1,4 +1,7 @@
 <tokens>
+<symbol> / </symbol>
+<symbol> * </symbol>
+<symbol> * </symbol>
 <keyword> class </keyword>
 <identifier> SquareGame </identifier>
 <symbol> { </symbol>

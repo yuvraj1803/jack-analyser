@@ -40,7 +40,7 @@ public:
     string tokenTypeString(string token); // returns the type of the token in string format.
     vector<string> getAllTokens(); // returns a list of all tokens generated from the input file.
     string getCurrentToken(); // returns the current token pointed by the tokenizer.
-    
+    void dumpXML();
     string getCurrentFilename(); // returns the current file that is begin processed.
 private:
     

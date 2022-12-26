@@ -21,6 +21,7 @@ jack_analyser::jack_analyser(string __path){
         tokenizer * T = new tokenizer(file);
         compilation_engine * CE = new compilation_engine(*T);
         
+        T->dumpXML();
         CE->dumpXML(); // dump the generated XML code into a file. this is handled by the compilation engine itself.
         
         // to avoid memory-leaks
