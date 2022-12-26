@@ -4,7 +4,7 @@ Author: Yuvraj Sakshith
  
 The Jack Analyser is a module of the Jack Compiler.
 
-It consists of two sub-modules, the **Tokenizer and the Compilation-Engine**.
+It consists of two sub-modules, the **Tokenizer and the Compilation-Engine (aka Parser)**.
 
 **Tokenizer** : Reads the given .jack file and breaks it into tokens. It can provide the next token sequentially by the Tokenizer-API.
 
