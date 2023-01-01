@@ -75,6 +75,8 @@ tokenizer::tokenizer(string file){
                         }
                     }
                 }
+                
+                if(multiLineCommentActive) continue;
                 // spaces and tabs are not removed if we are inside a string constant. to handle this, we use the insideString boolean value.
                 
                 if(!insideString and (line[charIndex] == ' ' or line[charIndex] == '\t')){ // removing spaces and tabs handled here.
